@@ -41,4 +41,8 @@ Consulter docs/STATUS.md et docs/VALIDATION.md avant distribution. Les fonctions
 
 ## Publication
 
-Voir docs/PUBLISHING.md. Les workflows préparent GitHub Pages et GitHub Releases. Aucun dépôt distant n'a été créé automatiquement. Utiliser un compte ou une organisation de projet dont l'identité publique respecte les contraintes de confidentialité.
+Site : https://tomoff1.github.io/ZYVORA-Console-Hub/
+
+Préversion Windows : https://github.com/tomoff1/ZYVORA-Console-Hub/releases/tag/v0.1.0
+
+Voir docs/PUBLISHING.md. Les workflows publient GitHub Pages et préparent GitHub Releases. Le compagnon ELF expérimental a été compilé en CI puis testé via un loader ; aucun PKG PS5 installable n'est disponible. Les limites du rapport de validation restent applicables.

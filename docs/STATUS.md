@@ -14,10 +14,10 @@ Les fonctions ne sont pas toutes validées sur matériel. Voir VALIDATION.md pou
 | Copies FTP | Récursion et manifeste SHA-256 ; vérification | Restauration et déchiffrement non implémentés |
 | Diagnostic etaHEN | Règles transparentes sur texte importé | Conseils, pas identification certaine de la cause |
 | Thèmes et animation | Deux fonds, animation de connexion | Réglages de thème non persistés |
-| Application PS5 | Étude SDK et source compagnon ELF | Pas de PKG PS5, pas de validation console |
+| Compagnon PS5 expérimental | Source ELF, compilée sur GitHub Actions | Démarrage et rapport validés sur console ; pas de PKG ou d'interface graphique PS5 |
 | Cheats/mods, jaquettes et mises à jour de jeux | Non implémentés | Non disponibles |
 | Extensions et outils de debug PS5 | Non implémentés | Non disponibles |
 | Mise à jour automatique ZYVORA | Non implémentée | Non disponible |
-| Site GitHub Pages / Releases | Sources et workflow de publication | Nécessite un dépôt GitHub et sa configuration |
+| Site GitHub Pages / Releases | Dépôt public, site et préversion publiés | Déploiement Actions réussi ; contrôle navigateur interactif indisponible |
 
 Aucun faux statut « installé », « compatible vérifié » ou « exécution réussie » n'est affiché. Le firmware est saisi, jamais déduit d'un port réseau ouvert. Aucun jeu commercial, clé, exploit ou binaire tiers n'est livré.

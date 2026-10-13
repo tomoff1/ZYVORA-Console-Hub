@@ -9,6 +9,17 @@ async Task Reject(Func<Task> action,string label){try{await action();}catch{Chec
 using var deadline=new CancellationTokenSource(TimeSpan.FromMinutes(3));var ct=deadline.Token;
 var temp=Path.Combine(Path.GetTempPath(),"zyvora-tests-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(temp);
 try {
+    if(args.Length==5&&args[0]=="--companion") {
+        var p=new ConsoleProfile(args[1],int.Parse(args[2]),LoaderPort:int.Parse(args[3]));
+        await using(var ftp=await FtpSession.Open(p,ct)){if((await ftp.List("/data",ct)).Any(e=>e.Name=="zyvora"))throw new IOException("Existing /data/zyvora: companion test skipped to preserve existing files.");}
+        await NetworkTools.SendPayload(p,args[4],null,ct);var target=Path.Combine(temp,"status.json");bool companionReceived=false;
+        try {
+            for(int attempt=0;attempt<12&&!companionReceived;attempt++){await Task.Delay(500,ct);try{await using var ftp=await FtpSession.Open(p,ct);await ftp.Download("/data/zyvora/companion-status.json",target,0,null,ct);companionReceived=true;}catch(IOException){}}
+            Check(companionReceived,"PS5 companion produced its status report");
+            using var report=System.Text.Json.JsonDocument.Parse(await File.ReadAllTextAsync(target,ct));Check(report.RootElement.GetProperty("product").GetString()=="ZYVORA"&&report.RootElement.GetProperty("version").GetString()=="0.1.0","PS5 companion report identity");
+        } finally {await using var ftp=await FtpSession.Open(p,ct);try{await ftp.Delete("/data/zyvora/companion-status.json",false,ct);}catch(IOException){}try{await ftp.Delete("/data/zyvora",true,ct);}catch(IOException){}}
+        Console.WriteLine("Companion startup verified. No installable PKG tested.");return;
+    }
     if(args.Length>0&&args[0]=="--catalog") {var item=CatalogService.Load(args[1]).Single();var dest=Path.Combine(temp,"catalog.elf");await CatalogService.Download(item,dest,null,ct);Check(await CatalogService.Hash(dest,ct)==item.Sha256,"origin download matches published SHA-256");return;}
     if(args.Length>0 && args[0]=="--console") {
         var profile=new ConsoleProfile(args[1],int.Parse(args[2]));
