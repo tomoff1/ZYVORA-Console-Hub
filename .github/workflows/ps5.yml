@@ -1,0 +1,26 @@
+name: Compile experimental PS5 companion
+on:
+  push:
+    branches: [main]
+    paths: ['ps5/**', '.github/workflows/ps5.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  elf:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install public SDK prerequisites
+        run: sudo apt-get update -qq && sudo apt-get install -y clang-18 lld-18 make unzip
+      - name: Download and verify pinned public SDK
+        run: |
+          curl --fail --location https://github.com/ps5-payload-dev/sdk/releases/download/v0.44/ps5-payload-sdk.zip --output /tmp/sdk.zip
+          echo '4d06eab777bb135705b5a6816688c9132efb246093fe606ac488ab6cf65ca5b0  /tmp/sdk.zip' | sha256sum --check
+          unzip -q /tmp/sdk.zip -d /tmp/sdk
+      - name: Compile ELF without deployment
+        run: PS5_PAYLOAD_SDK=/tmp/sdk/ps5-payload-sdk make -C ps5
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ZYVORA-PS5-experimental-ELF-not-hardware-validated
+          path: ps5/zyvora-companion.elf

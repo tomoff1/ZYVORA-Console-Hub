@@ -1,0 +1,11 @@
+[
+  {
+    "id": "etahen-unified-r1", "name": "etaHEN Unified (communautaire)", "version": "2.5B unified r1",
+    "url": "https://github.com/GronedWaffel/etahen-11.00-13.60/releases/download/v2.5B-unified.1/etaHEN-11.00-13.60.elf",
+    "sha256": "46c161473b27d12f1fa5e2d1d10466ce587db841ed9e8d71a219424d8fcf637f",
+    "license": "GPL-3.0", "source": "https://github.com/GronedWaffel/etahen-11.00-13.60",
+    "firmwares": ["11.00","11.20","11.60","12.00","12.02","12.20","12.40","12.60","12.70","13.00","13.20","13.40","13.42","13.60"],
+    "validation": "upstream-reported",
+    "description": "Port indépendant. Compatibilité déclarée par le mainteneur, pas certifiée par ZYVORA. Télécharger depuis l'origine ; ne pas superposer à une instance etaHEN/kstuff existante."
+  }
+]
